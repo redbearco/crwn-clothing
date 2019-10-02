@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>React Pure</title>
+</head>
+<body>
+    <div id="root">React not Rendered</div>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <script>
+        const Person = props => {
+            return React.createElement(
+                'div',
+                {} ,
+                [
+                    React.createElement(
+                        'h2' , 
+                        {} ,
+                        props.name
+                    ),
+                    React.createElement(
+                        'h3' , 
+                        {} ,
+                        props.occupation
+                    ),
+                ]
+            );
+        };
+
+        class App extends React.Component {
+            render() {
+                return React.createElement(
+                    'div' ,
+                    {'class' : 'card-id'} ,
+                    React.createElement(
+                        'ul' ,
+                        {} ,
+                        React.createElement(
+                        'li' ,
+                        {} ,
+                        [
+                            React.createElement('h1', {}, 'React Is Rendered!!!!'),
+                            React.createElement(Person , { name: 'Redbear', occupation: 'Company' }),
+                            React.createElement(Person , { name: 'MuhammadReza', occupation: 'Developer' }),
+                            React.createElement(Person , { name: 'Haniye', occupation: 'Designer' }),
+                        ]
+                        )
+                    )
+                );
+            }
+        }
+
+        ReactDOM.render(
+            React.createElement(App),
+            document.getElementById('root')
+        );
+    </script>
+</body>
+</html>
