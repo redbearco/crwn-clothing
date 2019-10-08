@@ -4,16 +4,42 @@ import 'firebase/firestore';
 import 'firebase/auth';
 
 const config = {
-    apiKey: "AIzaSyCLGkNKRi31iZlUY8L_0MtIXs6BTBB7MUg",
-    authDomain: "hidden-lyceum-235816.firebaseapp.com",
-    databaseURL: "https://hidden-lyceum-235816.firebaseio.com",
-    projectId: "hidden-lyceum-235816",
-    storageBucket: "",
-    messagingSenderId: "19321551475",
-    appId: "1:19321551475:web:3630e06e5f728afc024806"
+    apiKey: "AIzaSyC8PZnQy6iL2BtdJUyNPUxfSa_sshXL3zc",
+    authDomain: "crwn-db-1bd22.firebaseapp.com",
+    databaseURL: "https://crwn-db-1bd22.firebaseio.com",
+    projectId: "crwn-db-1bd22",
+    storageBucket: "crwn-db-1bd22.appspot.com",
+    messagingSenderId: "472846608102",
+    appId: "1:472846608102:web:407b730ced5577f2bafd27"
 };
 
 firebase.initializeApp(config);
+
+
+export const createUserProfileDocument = async (userAuth, additionalData) => {
+    if (!userAuth) return;
+  
+    const userRef = firestore.doc(`users/${userAuth.uid}`);
+  
+    const snapShot = await userRef.get();
+  
+    if (!snapShot.exists) {
+      const { displayName, email } = userAuth;
+      const createdAt = new Date();
+      try {
+        await userRef.set({
+          displayName,
+          email,
+          createdAt,
+          ...additionalData
+        });
+      } catch (error) {
+        console.log('error creating user', error.message);
+      }
+    }
+  
+    return userRef;
+};
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
